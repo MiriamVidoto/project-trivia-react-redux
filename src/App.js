@@ -13,11 +13,9 @@ export default function App() {
         <img src={ logo } className="App-logo" alt="logo" />
         <p>SUA VEZ DE BRILHAR</p>
       </header> */}
-      <body>
-        <Route exact path="/" component={ Login } />
-        <Route exact path="/game" component={ Game } />
-        <Route path="/settings" component={ Settings } />
-      </body>
+      <Route exact path="/" component={ Login } />
+      <Route exact path="/game" component={ Game } />
+      <Route path="/settings" component={ Settings } />
     </div>
   );
 }

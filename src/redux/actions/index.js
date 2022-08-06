@@ -1,14 +1,17 @@
 export const ADD_USER = 'ADD_USER';
 export const GETAPI = 'GETAPI';
 export const GETQUESTIONS = 'GETQUESTIONS';
+
 export const addUser = (payload) => ({
   type: ADD_USER,
   payload,
 });
+
 export const getApi = (payload) => ({
   type: GETAPI,
   payload,
 });
+
 export const getQuestions = (payload) => ({
   type: GETQUESTIONS,
   payload,
