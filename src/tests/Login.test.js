@@ -31,21 +31,36 @@ describe('Teste da tela de Login',  () => {
 
   expect(buttonPlay).toBeEnabled();
 
-    userEvent.click(buttonPlay)
-    const { pathname } = history.location;
-    expect(pathname).toBe('/game');
+  userEvent.click(buttonPlay)
+
+  await waitFor(() => {
+      const {location: {pathname}} = history;
+      expect(pathname).toBe('/game');
+    })
   })
   test('Se ao clicar no botão, a Api é chamada e as informaçãoes são adicionadas ao localStorage', async () =>{
-    const { history } = renderWithRouterAndRedux(<App />);
+    renderWithRouterAndRedux(<App />);
+   
+    const tokenApi = '5b022db67876c1b5a84b1e1ce468c233d46c8fa0178f60eb7fe6933d1a793c5e';
+
+    jest.spyOn(global, 'fetch').mockResolvedValue({
+      json: jest.fn().mockResolvedValue({token: tokenApi}),
+    });
+
+    const endpoint = 'https://opentdb.com/api_token.php?command=request';
     const inputName = screen.getByTestId('input-player-name');
     const inputEmail = screen.getByTestId('input-gravatar-email');
-    const buttonPlay = screen.getByRole('button', {name: /Play/i});
+    const buttonPlay = screen.getByRole('button', { name: /Play/i });
 
     userEvent.type(inputName, 'Alguém');
     userEvent.type(inputEmail, 'alguem@alguem.com')
     userEvent.click(buttonPlay);
   
-  
+    expect(global.fetch).toBeCalledTimes(1);
+    expect(global.fetch).toHaveBeenCalledWith(endpoint);
+
+    const storedUserToken =  await JSON.parse(localStorage.getItem('token'))
+    expect(storedUserToken).toBe(tokenApi);  
     })
 test('Se ao clicar no botão Settings deve ser redirecionada para a tela de configurações ', () =>{
   const { history } = renderWithRouterAndRedux(<App />);
