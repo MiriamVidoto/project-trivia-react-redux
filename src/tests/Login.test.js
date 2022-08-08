@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import App from '../App'
@@ -43,9 +43,9 @@ describe('Teste da tela de Login',  () => {
    
     const tokenApi = '5b022db67876c1b5a84b1e1ce468c233d46c8fa0178f60eb7fe6933d1a793c5e';
 
-    jest.spyOn(global, 'fetch').mockResolvedValue({
-      json: jest.fn().mockResolvedValue({token: tokenApi}),
-    });
+    global.fetch = jest.fn(async () => ({
+      json: async () =>  ({token: tokenApi})
+    }));
 
     const endpoint = 'https://opentdb.com/api_token.php?command=request';
     const inputName = screen.getByTestId('input-player-name');
@@ -56,11 +56,13 @@ describe('Teste da tela de Login',  () => {
     userEvent.type(inputEmail, 'alguem@alguem.com')
     userEvent.click(buttonPlay);
   
+    const storedUserToken = localStorage.getItem('token')
+    expect(storedUserToken).toBe(tokenApi);
+
     expect(global.fetch).toBeCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith(endpoint);
 
-    const storedUserToken =  await JSON.parse(localStorage.getItem('token'))
-    expect(storedUserToken).toBe(tokenApi);  
+      
     })
 test('Se ao clicar no botão Settings deve ser redirecionada para a tela de configurações ', () =>{
   const { history } = renderWithRouterAndRedux(<App />);
