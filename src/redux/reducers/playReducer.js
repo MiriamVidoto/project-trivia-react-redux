@@ -18,18 +18,20 @@ const playReducer = (state = INITIAL_STATE, action) => {
   //     ...state,
   //     token: action.getQuestions.token,
   //   };
-  case ADD_USER:
-    return {
-      ...state,
-      player: {
-        name: action.payload.name,
-        gravatarEmail: action.payload.email,
-      },
-    };
   case GETAPI:
     return {
       ...state,
       token: action.payload,
+    };
+
+  case ADD_USER:
+    return {
+      ...state,
+      player: {
+        ...state.player,
+        name: action.payload.name,
+        gravatarEmail: action.payload.email,
+      },
     };
   default:
     return state;

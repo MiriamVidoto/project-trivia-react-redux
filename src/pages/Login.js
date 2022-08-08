@@ -29,12 +29,11 @@ class Login extends React.Component {
   }
 
   handleClick = async () => {
-    const { fetchAPI: actionApi, history, addUser: actionAddUser } = this.props;
-    actionAddUser(this.state);
+    const { fetchAPI: actionApi, history, addUser: actAddUser } = this.props;
     await actionApi();
     const { token } = this.props;
-    console.log(token);
     localStorage.setItem('token', token);
+    actAddUser(this.state);
     history.push('/game');
   }
 
