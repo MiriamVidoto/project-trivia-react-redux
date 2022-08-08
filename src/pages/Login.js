@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { fetchAPI } from '../redux/actions';
+import { addUser, fetchAPI } from '../redux/actions';
 
 class Login extends React.Component {
   constructor() {
@@ -29,7 +29,8 @@ class Login extends React.Component {
   }
 
   handleClick = async () => {
-    const { fetchAPI: actionApi, history } = this.props;
+    const { fetchAPI: actionApi, history, addUser: actionAddUser } = this.props;
+    actionAddUser(this.state);
     await actionApi();
     const { token } = this.props;
     console.log(token);
@@ -84,10 +85,12 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchAPI: (data) => dispatch(fetchAPI(data)),
+  addUser: (payload) => dispatch(addUser(payload)),
 });
 
 Login.propTypes = {
   fetchAPI: PropTypes.func.isRequired,
+  addUser: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,

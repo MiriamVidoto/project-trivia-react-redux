@@ -1,5 +1,5 @@
 // import { GETQUESTIONS } from '../actions';
-import { GETAPI } from '../actions';
+import { ADD_USER, GETAPI } from '../actions';
 
 const INITIAL_STATE = {
   token: 'mockedToken',
@@ -18,6 +18,14 @@ const playReducer = (state = INITIAL_STATE, action) => {
   //     ...state,
   //     token: action.getQuestions.token,
   //   };
+  case ADD_USER:
+    return {
+      ...state,
+      player: {
+        name: action.payload.name,
+        gravatarEmail: action.payload.email,
+      },
+    };
   case GETAPI:
     return {
       ...state,
