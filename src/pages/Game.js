@@ -1,10 +1,14 @@
 import React from 'react';
 import Questions from '../components/Questions';
+import Header from '../Components/Header';
 
 class Game extends React.Component {
   render() {
     return (
-      <Questions />
+      <div>
+        <Header />
+        <Questions />
+      </div>
     );
   }
 }
