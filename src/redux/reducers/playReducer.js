@@ -1,5 +1,3 @@
-
-// import { GETQUESTIONS } from '../actions';
 import { ADD_USER, GETAPI } from '../actions';
 
 const INITIAL_STATE = {
