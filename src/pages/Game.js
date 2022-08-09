@@ -1,4 +1,5 @@
 import React from 'react';
+import Questions from '../components/Questions';
 import Header from '../Components/Header';
 
 class Game extends React.Component {
@@ -6,6 +7,7 @@ class Game extends React.Component {
     return (
       <div>
         <Header />
+        <Questions />
       </div>
     );
   }
