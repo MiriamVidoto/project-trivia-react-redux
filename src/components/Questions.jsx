@@ -1,5 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { stopTime } from '../redux/actions';
 import './Questions.css';
 
 class Questions extends React.Component {
@@ -71,6 +74,7 @@ class Questions extends React.Component {
       correct,
       incorrect,
     } = this.state;
+    const { btnDisable } = this.props;
     const question = questions[questionIndex];
     const number = 4;
     const number2 = 0.5;
@@ -99,6 +103,7 @@ class Questions extends React.Component {
                         data-testid="correct-answer"
                         className={ correct }
                         onClick={ this.handleClick }
+                        disabled={ btnDisable }
                       >
                         {element.answer}
                       </button>)
@@ -109,6 +114,7 @@ class Questions extends React.Component {
                         data-testid={ `wrong-answer-${i}` }
                         className={ incorrect }
                         onClick={ this.handleClick }
+                        disabled={ btnDisable }
                       >
                         {element.answer}
                       </button>)))
@@ -120,4 +126,15 @@ class Questions extends React.Component {
   }
 }
 
-export default Questions;
+Questions.propTypes = {
+  btnDisable: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  btnDisable: state.playReducer.btnDisable,
+});
+const mapDispatchToProps = (dispatch) => ({
+  stop: (payload) => (dispatch(stopTime(payload))),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Questions);

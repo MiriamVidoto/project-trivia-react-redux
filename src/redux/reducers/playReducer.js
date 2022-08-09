@@ -1,7 +1,9 @@
-import { ADD_USER, GETAPI } from '../actions';
+import { ADD_USER, BUTTON_DISABLE, GETAPI, STOP_TIME } from '../actions';
 
 const INITIAL_STATE = {
   token: '',
+  timeover: false,
+  btnDisable: false,
   player: {
     name: '',
     gravatarEmail: '',
@@ -26,6 +28,16 @@ const playReducer = (state = INITIAL_STATE, action) => {
         name: action.payload.name,
         gravatarEmail: action.payload.email,
       },
+    };
+  case STOP_TIME:
+    return {
+      ...state,
+      timeover: action.payload,
+    };
+  case BUTTON_DISABLE:
+    return {
+      ...state,
+      btnDisable: action.payload,
     };
   default:
     return state;
