@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 class Questions extends React.Component {
   constructor() {
@@ -9,7 +9,7 @@ class Questions extends React.Component {
     this.state = {
       questions: [],
       response: '',
-      redirect: false,
+      // redirect: false,
     };
   }
 
@@ -27,23 +27,29 @@ class Questions extends React.Component {
         response: payload.response_code,
       });
     }
-    this.setState({ redirect: true });
+    // this.setState({ redirect: true });
+  }
+
+  randomButtonsOptions = () => {
+    const { questions } = this.state;
+    const options = [questions.correct_answer, ...questions.incorrect_answers];
   }
 
   render() {
-    const { questions, response, redirect } = this.state;
+    const { questions, response } = this.state;
     console.log(response);
+    console.log(questions);
     return (
       <div>
-        {
+        {/* {
           redirect && <Redirect to="/" />
-        }
+        } */}
         {
           questions.map((question, index) => (
             <div key={ index }>
               <h3 data-testid="question-category">{question.category}</h3>
               <h5 data-testid="question-text">{question.question}</h5>
-              <button type="button" data-testid="correct-answer">
+              {/* <button type="button" data-testid="correct-answer">
                 {question.correct_answer}
               </button>
               {question.incorrect_answers.map((element, i) => (
@@ -54,7 +60,7 @@ class Questions extends React.Component {
                 >
                   {element}
 
-                </button>))}
+                </button>))} */}
             </div>
           ))
         }
