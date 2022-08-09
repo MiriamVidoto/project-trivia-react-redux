@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import './Questions.css';
 
 class Questions extends React.Component {
   constructor() {
@@ -9,6 +10,8 @@ class Questions extends React.Component {
       questionIndex: 0,
       redirect: false,
       loading: true,
+      correct: '',
+      incorrect: '',
     };
   }
 
@@ -53,13 +56,25 @@ class Questions extends React.Component {
     return arrayAnwers;
   }
 
+  handleClick = () => {
+    this.setState({
+      correct: 'greenCorrect',
+      incorrect: 'redIncorrect',
+    });
+  }
+
   render() {
-    const { questions, questionIndex, redirect, loading } = this.state;
+    const { questions,
+      questionIndex,
+      redirect,
+      loading,
+      correct,
+      incorrect,
+    } = this.state;
     const question = questions[questionIndex];
-    console.log(redirect);
     const number = 4;
     const number2 = 0.5;
-    // const random = .sort(Math.floor(Math.random() * number));
+
     if (loading) {
       return (<p>Carregando...</p>);
     }
@@ -82,6 +97,8 @@ class Questions extends React.Component {
                         key={ i }
                         type="button"
                         data-testid="correct-answer"
+                        className={ correct }
+                        onClick={ this.handleClick }
                       >
                         {element.answer}
                       </button>)
@@ -90,6 +107,8 @@ class Questions extends React.Component {
                         key={ i }
                         type="button"
                         data-testid={ `wrong-answer-${i}` }
+                        className={ incorrect }
+                        onClick={ this.handleClick }
                       >
                         {element.answer}
                       </button>)))
