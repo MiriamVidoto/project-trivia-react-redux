@@ -1,15 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-// import { Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class Questions extends React.Component {
   constructor() {
     super();
     this.state = {
       questions: [],
-      response: '',
-      // redirect: false,
+      questionIndex: 0,
+      redirect: false,
+      loading: true,
     };
   }
 
@@ -18,63 +17,88 @@ class Questions extends React.Component {
   }
 
   fetchQuestions = async () => {
-    const { token } = this.props;
-    if (token.length > 0) {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.setState({ redirect: true });
+    }
+
+    if (token) {
       const response = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
+      console.log(response);
       const payload = await response.json();
       this.setState({
         questions: payload.results,
-        response: payload.response_code,
+        redirect: this.validateToken(payload.response_code),
+        loading: false,
       });
     }
-    // this.setState({ redirect: true });
   }
 
-  randomButtonsOptions = () => {
-    const { questions } = this.state;
-    const options = [questions.correct_answer, ...questions.incorrect_answers];
+  validateToken = (response) => {
+    const responseNumber = 3;
+    if (response === responseNumber) {
+      return true;
+    }
+  }
+
+  getArrayAnwers = (question) => {
+    const arrayAnwers = question.incorrect_answers.map((element, index) => ({
+      id: index,
+      answer: element,
+    }));
+    arrayAnwers.push({
+      id: 4,
+      answer: question.correct_answer,
+    });
+    return arrayAnwers;
   }
 
   render() {
-    const { questions, response } = this.state;
-    console.log(response);
-    console.log(questions);
+    const { questions, questionIndex, redirect, loading } = this.state;
+    const question = questions[questionIndex];
+    console.log(redirect);
+    const number = 4;
+    const number2 = 0.5;
+    // const random = .sort(Math.floor(Math.random() * number));
+    if (loading) {
+      return (<p>Carregando...</p>);
+    }
+    if (redirect) {
+      return <Redirect to="/" />;
+    }
     return (
       <div>
-        {/* {
-          redirect && <Redirect to="/" />
-        } */}
-        {
-          questions.map((question, index) => (
-            <div key={ index }>
-              <h3 data-testid="question-category">{question.category}</h3>
-              <h5 data-testid="question-text">{question.question}</h5>
-              {/* <button type="button" data-testid="correct-answer">
-                {question.correct_answer}
-              </button>
-              {question.incorrect_answers.map((element, i) => (
-                <button
-                  type="button"
-                  data-testid={ `wrong-answer-${i}` }
-                  key={ i }
-                >
-                  {element}
-
-                </button>))} */}
-            </div>
-          ))
-        }
+        <div>
+          <h3 data-testid="question-category">{question.category}</h3>
+          <h5 data-testid="question-text">{question.question}</h5>
+          <div data-testid="answer-options">
+            {
+              this.getArrayAnwers(question)
+                .sort(() => Math.random() - number2)
+                .map((element, i) => (
+                  element.id === number
+                    ? (
+                      <button
+                        key={ i }
+                        type="button"
+                        data-testid="correct-answer"
+                      >
+                        {element.answer}
+                      </button>)
+                    : (
+                      <button
+                        key={ i }
+                        type="button"
+                        data-testid={ `wrong-answer-${i}` }
+                      >
+                        {element.answer}
+                      </button>)))
+            }
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  token: state.playReducer.token,
-});
-
-Questions.propTypes = {
-  token: PropTypes.string.isRequired,
-};
-
-export default connect(mapStateToProps)(Questions);
+export default Questions;
