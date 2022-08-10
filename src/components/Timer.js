@@ -19,8 +19,10 @@ class Timer extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.seconds === this.time_limit) {
-      this.pauseTimer();
+    const { btnDisable, timeRest } = this.props;
+    if (btnDisable || prevState.seconds === this.time_limit) {
+      timeRest(prevState.seconds);
+      clearInterval(this.timer);
     }
   }
 
@@ -28,41 +30,22 @@ class Timer extends Component {
     clearInterval(this.timer);
   }
 
-  pauseTimer = () => {
-    this.setState({
-      seconds: 0,
-    });
-  }
-
   tick = () => {
-    this.stopRestTick();
-    this.setState(
-      (prevState) => ({
-        seconds: prevState.seconds - 1,
-      }),
-    );
-  };
-
-  stopTick = () => {
     const { seconds } = this.state;
-    const secondsLimit = 0;
-    if (seconds === secondsLimit) {
+    if (seconds === this.time_limit) {
       const { disable } = this.props;
       disable(true);
-    }
-  };
-
-  stopRestTick = () => {
-    const { btnDisable, timeRest } = this.props;
-    const { seconds } = this.state;
-    if (btnDisable) {
+      this.setState({
+        seconds: 0,
+      });
+    } else {
       this.setState(
         (prevState) => ({
-          seconds: prevState.seconds,
-        }), () => timeRest(seconds),
+          seconds: prevState.seconds - 1,
+        }),
       );
     }
-  }
+  };
 
   render() {
     const { seconds } = this.state;
@@ -82,8 +65,8 @@ Timer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  timeover: state.playReducer.timeover,
   btnDisable: state.playReducer.btnDisable,
+  timeover: state.playReducer.timeover,
 });
 
 const mapDispatchToProps = (dispatch) => ({

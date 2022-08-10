@@ -65,8 +65,8 @@ class Questions extends React.Component {
       correct: 'greenCorrect',
       incorrect: 'redIncorrect',
     });
-    disableRest(true);
     stop(true);
+    disableRest(true);
   }
 
   render() {
