@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { stopTime } from '../redux/actions';
+import { buttonDisable, stopTime } from '../redux/actions';
 import './Questions.css';
 
 class Questions extends React.Component {
@@ -60,10 +60,13 @@ class Questions extends React.Component {
   }
 
   handleClick = () => {
+    const { stop, disableRest } = this.props;
     this.setState({
       correct: 'greenCorrect',
       incorrect: 'redIncorrect',
     });
+    disableRest(true);
+    stop(true);
   }
 
   render() {
@@ -128,6 +131,8 @@ class Questions extends React.Component {
 
 Questions.propTypes = {
   btnDisable: PropTypes.bool.isRequired,
+  stop: PropTypes.func.isRequired,
+  disableRest: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -135,6 +140,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
   stop: (payload) => (dispatch(stopTime(payload))),
+  disableRest: (payload) => (dispatch(buttonDisable(payload))),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);

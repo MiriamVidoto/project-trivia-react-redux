@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { buttonDisable } from '../redux/actions';
+import { buttonDisable, restTime } from '../redux/actions';
 
 class Timer extends Component {
   constructor() {
@@ -35,11 +35,11 @@ class Timer extends Component {
   }
 
   tick = () => {
+    this.stopRestTick();
     this.setState(
       (prevState) => ({
         seconds: prevState.seconds - 1,
       }),
-      () => this.stopTick(),
     );
   };
 
@@ -51,6 +51,18 @@ class Timer extends Component {
       disable(true);
     }
   };
+
+  stopRestTick = () => {
+    const { btnDisable, timeRest } = this.props;
+    const { seconds } = this.state;
+    if (btnDisable) {
+      this.setState(
+        (prevState) => ({
+          seconds: prevState.seconds,
+        }), () => timeRest(seconds),
+      );
+    }
+  }
 
   render() {
     const { seconds } = this.state;
@@ -64,14 +76,19 @@ class Timer extends Component {
 
 Timer.propTypes = {
   disable: PropTypes.func.isRequired,
+  timeRest: PropTypes.func.isRequired,
+  btnDisable: PropTypes.bool.isRequired,
+  // timeover: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   timeover: state.playReducer.timeover,
+  btnDisable: state.playReducer.btnDisable,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   disable: (payload) => (dispatch(buttonDisable(payload))),
+  timeRest: (payload) => (dispatch(restTime(payload))),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);

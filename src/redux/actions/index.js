@@ -3,6 +3,7 @@ export const GETAPI = 'GETAPI';
 export const GETQUESTIONS = 'GETQUESTIONS';
 export const STOP_TIME = 'STOP_TIME';
 export const BUTTON_DISABLE = 'BUTTON_DISABLE';
+export const REST_TIME = 'REST_TIME';
 
 export const addUser = (payload) => ({
   type: ADD_USER,
@@ -16,6 +17,11 @@ export const getApi = (payload) => ({
 
 export const getQuestions = (payload) => ({
   type: GETQUESTIONS,
+  payload,
+});
+
+export const restTime = (payload) => ({
+  type: REST_TIME,
   payload,
 });
 
