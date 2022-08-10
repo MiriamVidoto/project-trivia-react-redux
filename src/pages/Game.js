@@ -1,6 +1,7 @@
 import React from 'react';
-import Questions from '../components/Questions';
 import Header from '../components/Header';
+import Questions from '../components/Questions';
+import Timer from '../components/Timer';
 
 class Game extends React.Component {
   render() {
@@ -8,6 +9,7 @@ class Game extends React.Component {
       <div>
         <Header />
         <Questions />
+        <Timer />
       </div>
     );
   }
