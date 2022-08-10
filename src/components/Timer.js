@@ -9,6 +9,8 @@ class Timer extends Component {
     this.state = {
       seconds: 30,
     };
+
+    this.time_limit = 0;
   }
 
   componentDidMount() {
@@ -16,15 +18,30 @@ class Timer extends Component {
     this.timer = setInterval(() => this.tick(), milliseconds);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.seconds === this.time_limit) {
+      this.pauseTimer();
+    }
+  }
+
   componentWillUnmount() {
     clearInterval(this.timer);
   }
 
-  tick = () => {
-    this.setState((prevState) => ({
-      seconds: prevState.seconds - 1,
-    }), () => this.stopTick());
+  pauseTimer = () => {
+    this.setState({
+      seconds: 0,
+    });
   }
+
+  tick = () => {
+    this.setState(
+      (prevState) => ({
+        seconds: prevState.seconds - 1,
+      }),
+      () => this.stopTick(),
+    );
+  };
 
   stopTick = () => {
     const { seconds } = this.state;
@@ -33,13 +50,13 @@ class Timer extends Component {
       const { disable } = this.props;
       disable(true);
     }
-  }
+  };
 
   render() {
     const { seconds } = this.state;
     return (
       <div>
-        <span>{ `Você tem ${seconds} segundos para responder!` }</span>
+        <span>{`Você tem ${seconds} segundos para responder!`}</span>
       </div>
     );
   }
