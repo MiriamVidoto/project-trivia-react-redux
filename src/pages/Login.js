@@ -79,7 +79,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  token: state.playReducer.token,
+  token: state.player.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({

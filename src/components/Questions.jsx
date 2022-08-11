@@ -77,10 +77,28 @@ class Questions extends React.Component {
     disableRest(true);
     if (questions[questionIndex].correct_answer === target.innerText) {
       const result = (this.difficultyArray())[questionIndex];
-      console.log(result);
       return dificultQuestion(result);
     }
+    // this.addScore();
   }
+
+  // addScore = () => {
+  //   const { restTime, dificult, scoreget, score } = this.props;
+  //   const ten = 10;
+  //   const hardN = 3;
+  //   const testDificult = () => {
+  //     if (dificult === 'hard') { return hardN; }
+  //     if (dificult === 'medium') { return 2; }
+  //     if (dificult === 'easy') { return 1; }
+  //   };
+  //   const soma = () => {
+  //     if (dificult) {
+  //       return (score + (ten + (restTime * testDificult())));
+  //     }
+  //     return 0;
+  //   };
+  //   return scoreget(soma());
+  // }
 
   render() {
     const { questions,
@@ -148,16 +166,21 @@ Questions.propTypes = {
   stop: PropTypes.func.isRequired,
   disableRest: PropTypes.func.isRequired,
   dificultQuestion: PropTypes.func.isRequired,
+  // restTime: PropTypes.string.isRequired,
+  // dificult: PropTypes.string.isRequired,
+  // scoreget: PropTypes.func.isRequired,
+  // score: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  btnDisable: state.playReducer.btnDisable,
+  btnDisable: state.player.btnDisable,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   stop: (payload) => (dispatch(stopTime(payload))),
   disableRest: (payload) => (dispatch(buttonDisable(payload))),
   dificultQuestion: (payload) => (dispatch(dificultQuest(payload))),
+  // scoreget: (payload) => (dispatch(getScore(payload))),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
