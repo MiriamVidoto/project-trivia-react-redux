@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { buttonDisable, stopTime } from '../redux/actions';
+import { buttonDisable, stopTime, dificultQuest } from '../redux/actions';
 import './Questions.css';
 
 class Questions extends React.Component {
@@ -15,6 +15,7 @@ class Questions extends React.Component {
       loading: true,
       correct: '',
       incorrect: '',
+      // dificult: '',
     };
   }
 
@@ -59,14 +60,26 @@ class Questions extends React.Component {
     return arrayAnwers;
   }
 
-  handleClick = () => {
-    const { stop, disableRest } = this.props;
+  difficultyArray = () => {
+    const { questions } = this.state;
+    return questions.map((element) => element.difficulty);
+  }
+
+  handleClick = ({ target }) => {
+    const { stop, disableRest, dificultQuestion } = this.props;
+    // const arrayDificult = this.difficultyArray();
+    const { questions, questionIndex } = this.state;
     this.setState({
       correct: 'greenCorrect',
       incorrect: 'redIncorrect',
     });
     stop(true);
     disableRest(true);
+    if (questions[questionIndex].correct_answer === target.innerText) {
+      const result = (this.difficultyArray())[questionIndex];
+      console.log(result);
+      return dificultQuestion(result);
+    }
   }
 
   render() {
@@ -77,6 +90,7 @@ class Questions extends React.Component {
       correct,
       incorrect,
     } = this.state;
+    console.log(this.difficultyArray());
     const { btnDisable } = this.props;
     const question = questions[questionIndex];
     const number = 4;
@@ -133,14 +147,17 @@ Questions.propTypes = {
   btnDisable: PropTypes.bool.isRequired,
   stop: PropTypes.func.isRequired,
   disableRest: PropTypes.func.isRequired,
+  dificultQuestion: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   btnDisable: state.playReducer.btnDisable,
 });
+
 const mapDispatchToProps = (dispatch) => ({
   stop: (payload) => (dispatch(stopTime(payload))),
   disableRest: (payload) => (dispatch(buttonDisable(payload))),
+  dificultQuestion: (payload) => (dispatch(dificultQuest(payload))),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
