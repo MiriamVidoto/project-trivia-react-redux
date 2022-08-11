@@ -16,7 +16,13 @@ class Header extends Component {
       if (dificult === 'medium') { return 2; }
       if (dificult === 'easy') { return 1; }
     };
-    scoreget(ten + (restTime * testDificult()));
+    const blabla = () => {
+      if (dificult) {
+        return ten + (restTime * testDificult());
+      }
+      return 0;
+    };
+    scoreget(blabla());
     return (
       <div>
         <img
