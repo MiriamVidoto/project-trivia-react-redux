@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { stopTime } from '../redux/actions';
+import { buttonDisable, stopTime, dificultQuest } from '../redux/actions';
 import './Questions.css';
 
 class Questions extends React.Component {
@@ -15,6 +15,8 @@ class Questions extends React.Component {
       loading: true,
       correct: '',
       incorrect: '',
+      // dificult: '',zz,
+      btnClicked: false,
     };
   }
 
@@ -59,10 +61,34 @@ class Questions extends React.Component {
     return arrayAnwers;
   }
 
-  handleClick = () => {
+  difficultyArray = () => {
+    const { questions } = this.state;
+    return questions.map((element) => element.difficulty);
+  }
+
+  handleClick = ({ target }) => {
+    const { stop, disableRest, dificultQuestion } = this.props;
+    // const arrayDificult = this.difficultyArray();
+    const { questions, questionIndex } = this.state;
     this.setState({
       correct: 'greenCorrect',
       incorrect: 'redIncorrect',
+      btnClicked: true,
+    });
+    stop(true);
+    disableRest(true);
+    if (questions[questionIndex].correct_answer === target.innerText) {
+      const result = (this.difficultyArray())[questionIndex];
+      console.log(result);
+      return dificultQuestion(result);
+    }
+  }
+
+  nextQuestion = () => {
+    const { questionIndex } = this.state;
+    const finalQuestion = 5;
+    this.setState({
+      questionIndex: questionIndex < finalQuestion ? questionIndex + 1 : 0,
     });
   }
 
@@ -73,7 +99,9 @@ class Questions extends React.Component {
       loading,
       correct,
       incorrect,
+      btnClicked,
     } = this.state;
+    console.log(this.difficultyArray());
     const { btnDisable } = this.props;
     const question = questions[questionIndex];
     const number = 4;
@@ -120,6 +148,15 @@ class Questions extends React.Component {
                       </button>)))
             }
           </div>
+          {btnClicked && (
+            <button
+              type="button"
+              data-testid="btn-next"
+              onClick={ this.nextQuestion }
+            >
+              Next
+            </button>
+          )}
         </div>
       </div>
     );
@@ -128,13 +165,19 @@ class Questions extends React.Component {
 
 Questions.propTypes = {
   btnDisable: PropTypes.bool.isRequired,
+  stop: PropTypes.func.isRequired,
+  disableRest: PropTypes.func.isRequired,
+  dificultQuestion: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   btnDisable: state.playReducer.btnDisable,
 });
+
 const mapDispatchToProps = (dispatch) => ({
   stop: (payload) => (dispatch(stopTime(payload))),
+  disableRest: (payload) => (dispatch(buttonDisable(payload))),
+  dificultQuestion: (payload) => (dispatch(dificultQuest(payload))),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
