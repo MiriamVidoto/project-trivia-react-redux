@@ -8,7 +8,7 @@ class Header extends Component {
   getGravatarEmail = (email) => md5(email).toString();
 
   render() {
-    const { name, score, email, restTime, dificult, scoreget } = this.props;
+    const { name, score, email, scoreget, restTime, dificult } = this.props;
     const ten = 10;
     const hardN = 3;
     const testDificult = () => {
@@ -16,7 +16,14 @@ class Header extends Component {
       if (dificult === 'medium') { return 2; }
       if (dificult === 'easy') { return 1; }
     };
-    scoreget(ten + (restTime * testDificult()));
+    const soma = () => {
+      if (dificult) {
+        return (ten + (restTime * testDificult()));
+      }
+      return 0;
+    };
+    const blabla = soma();
+    scoreget(blabla);
     return (
       <div>
         <img
@@ -37,17 +44,17 @@ Header.propTypes = {
   name: PropTypes.string.isRequired,
   score: PropTypes.number.isRequired,
   email: PropTypes.string.isRequired,
-  restTime: PropTypes.string.isRequired,
+  restTime: PropTypes.number.isRequired,
   dificult: PropTypes.string.isRequired,
   scoreget: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (store) => ({
-  name: store.playReducer.player.name,
-  score: store.playReducer.score,
-  email: store.playReducer.player.gravatarEmail,
-  restTime: store.playReducer.restTime,
-  dificult: store.playReducer.dificult,
+  name: store.player.name,
+  score: store.player.score,
+  email: store.player.gravatarEmail,
+  restTime: store.player.restTime,
+  dificult: store.player.dificult,
 });
 
 const mapDispatchToProps = (dispatch) => ({

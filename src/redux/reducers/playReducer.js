@@ -11,15 +11,14 @@ const INITIAL_STATE = {
   btnDisable: false,
   restTime: 0,
   dificult: '',
-  player: {
-    name: '',
-    gravatarEmail: '',
-    score: 0,
-    assertions: 0,
-  },
+  name: '',
+  gravatarEmail: '',
+  score: 0,
+  assertions: 0,
+
 };
 
-const playReducer = (state = INITIAL_STATE, action) => {
+const player = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case GETAPI:
     return {
@@ -30,11 +29,8 @@ const playReducer = (state = INITIAL_STATE, action) => {
   case ADD_USER:
     return {
       ...state,
-      player: {
-        ...state.player,
-        name: action.payload.name,
-        gravatarEmail: action.payload.email,
-      },
+      name: action.payload.name,
+      gravatarEmail: action.payload.email,
     };
   case STOP_TIME:
     return {
@@ -66,4 +62,4 @@ const playReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default playReducer;
+export default player;

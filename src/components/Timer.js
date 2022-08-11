@@ -65,8 +65,8 @@ Timer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  btnDisable: state.playReducer.btnDisable,
-  timeover: state.playReducer.timeover,
+  btnDisable: state.player.btnDisable,
+  timeover: state.player.timeover,
 });
 
 const mapDispatchToProps = (dispatch) => ({

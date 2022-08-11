@@ -79,7 +79,6 @@ class Questions extends React.Component {
     disableRest(true);
     if (questions[questionIndex].correct_answer === target.innerText) {
       const result = (this.difficultyArray())[questionIndex];
-      console.log(result);
       return dificultQuestion(result);
     }
   }
@@ -171,7 +170,7 @@ Questions.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  btnDisable: state.playReducer.btnDisable,
+  btnDisable: state.player.btnDisable,
 });
 
 const mapDispatchToProps = (dispatch) => ({
