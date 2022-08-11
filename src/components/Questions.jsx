@@ -15,7 +15,8 @@ class Questions extends React.Component {
       loading: true,
       correct: '',
       incorrect: '',
-      // dificult: '',
+      // dificult: '',zz,
+      btnClicked: false,
     };
   }
 
@@ -72,6 +73,7 @@ class Questions extends React.Component {
     this.setState({
       correct: 'greenCorrect',
       incorrect: 'redIncorrect',
+      btnClicked: true,
     });
     stop(true);
     disableRest(true);
@@ -82,6 +84,14 @@ class Questions extends React.Component {
     }
   }
 
+  nextQuestion = () => {
+    const { questionIndex } = this.state;
+    const finalQuestion = 5;
+    this.setState({
+      questionIndex: questionIndex < finalQuestion ? questionIndex + 1 : 0,
+    });
+  }
+
   render() {
     const { questions,
       questionIndex,
@@ -89,6 +99,7 @@ class Questions extends React.Component {
       loading,
       correct,
       incorrect,
+      btnClicked,
     } = this.state;
     console.log(this.difficultyArray());
     const { btnDisable } = this.props;
@@ -137,6 +148,15 @@ class Questions extends React.Component {
                       </button>)))
             }
           </div>
+          {btnClicked && (
+            <button
+              type="button"
+              data-testid="btn-next"
+              onClick={ this.nextQuestion }
+            >
+              Next
+            </button>
+          )}
         </div>
       </div>
     );
