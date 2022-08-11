@@ -86,9 +86,9 @@ class Questions extends React.Component {
 
   nextQuestion = () => {
     const { questionIndex } = this.state;
-    const finalQuestion = 5;
+
     this.setState({
-      questionIndex: questionIndex < finalQuestion ? questionIndex + 1 : 0,
+      questionIndex: questionIndex + 1,
     });
   }
 
@@ -106,12 +106,17 @@ class Questions extends React.Component {
     const question = questions[questionIndex];
     const number = 4;
     const number2 = 0.5;
+    const finalQuestion = 4;
 
     if (loading) {
       return (<p>Carregando...</p>);
     }
     if (redirect) {
       return <Redirect to="/" />;
+    }
+
+    if (questionIndex > finalQuestion) {
+      return <Redirect to="/feedback" />;
     }
     return (
       <div>
