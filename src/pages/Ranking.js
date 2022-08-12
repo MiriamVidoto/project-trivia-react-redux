@@ -7,6 +7,7 @@ class Ranking extends Component {
     const rankingPlayers = [];
     return (
       <div>
+        <h1 data-testid="ranking-title">Ranking</h1>
         <button
           type="button"
           data-testid="btn-go-home"

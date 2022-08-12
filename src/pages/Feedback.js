@@ -4,30 +4,20 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 
 class Feedback extends React.Component {
-  constructor() {
-    super();
-    this.state = { msg: 'Could be better...' };
-  }
-
-  componentDidMount() {
-    this.getMsg();
-  }
-
-  getMsg = () => {
-    const { assertions } = this.props;
-    const numberAssertions = 3;
-    if (assertions > numberAssertions) {
-      this.setState({ msg: 'Well Done!' });
-    }
-  }
-
   render() {
     const { assertions, score, history } = this.props;
-    const { msg } = this.state;
+    const number = 3;
+    const testAssert = () => {
+      if (assertions < number) {
+        return 'Could be better...';
+      }
+      return 'Well Done!';
+    };
+    const assert = testAssert();
     return (
       <div>
         <Header />
-        <p data-testid="feedback-text">{ msg }</p>
+        <p data-testid="feedback-text">{ assert }</p>
         <p data-testid="feedback-total-score">{ score }</p>
         <p data-testid="feedback-total-question">{ assertions }</p>
         <button
