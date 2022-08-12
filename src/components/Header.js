@@ -17,8 +17,8 @@ class Header extends Component {
           )}` }
           alt={ `gravatar de ${email}` }
         />
-        <span data-testid="header-player-name">{name}</span>
-        <span data-testid="header-score">{score}</span>
+        <span data-testid="header-player-name">{ name }</span>
+        <span data-testid="header-score">{ score }</span>
       </div>
     );
   }
