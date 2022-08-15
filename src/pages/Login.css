@@ -1,0 +1,25 @@
+.login {
+  align-items: center;
+  background-color: #130233;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  justify-content: space-around;
+  margin: auto;
+  padding: 30px;
+  width: 40%;
+}
+
+input {
+  border-radius: 5px;
+  padding: 10px;
+}
+
+button {
+  background-color: #6767af;
+  border-radius: 3px;
+  color: white;
+  padding: 8px;
+  width: 120px;
+}

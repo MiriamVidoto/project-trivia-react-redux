@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { addUser, fetchAPI } from '../redux/actions';
+import './Login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -41,7 +42,7 @@ class Login extends React.Component {
     const { name, email, disabled } = this.state;
     const { history } = this.props;
     return (
-      <div>
+      <div className="login">
         <input
           data-testid="input-player-name"
           type="text"

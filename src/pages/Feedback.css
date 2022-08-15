@@ -1,0 +1,13 @@
+.feedback {
+  align-items: center;
+  background-color: aliceblue;
+  color: #130233;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2em;
+  height: 300px;
+  justify-content: space-around;
+  margin: auto;
+  padding: 30px;
+  width: 50%;
+}
