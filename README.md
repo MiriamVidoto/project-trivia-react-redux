@@ -1,13 +1,25 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# Boas-vindas ao repositório do projeto de Trivia!
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+Este foi um projeto em grupo, realizado durante o meu curso  na Trybe, onde utilizamos metodologias ageis para nossa organização.
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+Foi desenvolvido um jogo de perguntas e respostas utilizando ReactJS e Redux.
+
+Nessa aplicação, a pessoa usuária poderá:
+
+  - Logar no jogo e, se o email tiver cadastro no site [Gravatar](https://pt.gravatar.com/), ter sua foto associada ao perfil da pessoa usuária.
+  - Acessar a página referente ao jogo, onde se deverá escolher uma das respostas disponíveis para cada uma das perguntas apresentadas. A resposta deve ser marcada antes do contador de tempo chegar a zero, caso contrário a resposta deverá ser considerada errada.
+  - Ser redirecionada, após 5 perguntas respondidas, para a tela de score, onde o texto mostrado depende do número de acertos.
+  - Visualizar a página de ranking, se quiser, ao final de cada jogo.
+  - Configurar algumas opções para o jogo em uma tela de configuração acessível a partir do cabeçalho do app.
+
+Foi utilizado TDD durante o desenvolvimento de todo o projeto.
+
+
+ Nesse projeto, eu aprimorei minhas habilidades de:
+
+  - Criar um store Redux em aplicações React
+  - Criar reducers no Redux em aplicações React
+  - Criar actions no Redux em aplicações React
+  - Criar dispatchers no Redux em aplicações React
+  - Conectar Redux aos componentes React
+  - Criar actions assíncronas na sua aplicação React que faz uso de Redux.
