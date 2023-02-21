@@ -13,6 +13,7 @@ describe('Teste da tela de Ranking',  () => {
   })
   test('Se na página existe uma lista com a imagem, nome e pontuação das pessoas que jogaram', () =>{
     renderWithRouterAndRedux(<Ranking />);
+    expect(screen.getByTestrole('img', {name: /img-gravatar/i})).toBeDefined();
     expect(screen.getByTestId(/player-name-/i)).toBeDefined();
     expect(screen.getByTestId(/player-score-/i)).toBeDefined();
   })

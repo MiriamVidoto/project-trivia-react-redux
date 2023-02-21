@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import { getAssertions, getScore } from '../redux/actions';
-import './Questions.css';
+import './Game.css';
 
 class Game extends React.Component {
   constructor(props) {
@@ -62,6 +62,8 @@ class Game extends React.Component {
           this.getArrayAnwers();
           const dificult = questions[questionIndex].difficulty;
           this.setState({ dificult });
+        } else {
+          localStorage.removeItem('token');
         }
       });
     }
@@ -167,49 +169,53 @@ class Game extends React.Component {
       return <Redirect to="/" />;
     }
     return (
-      <div>
+      <div className="game">
         <Header />
-        <h3 data-testid="question-category">{question.category}</h3>
-        <h5 data-testid="question-text">{question.question}</h5>
-        <div data-testid="answer-options">
-          {
-            answers.map((element, i) => (
-              element.id === number
-                ? (
-                  <button
-                    key={ i }
-                    type="button"
-                    data-testid="correct-answer"
-                    className={ correct }
-                    onClick={ this.handleClick }
-                    disabled={ btnsDisable }
-                  >
-                    {element.answer}
-                  </button>)
-                : (
-                  <button
-                    key={ i }
-                    type="button"
-                    data-testid={ `wrong-answer-${i}` }
-                    className={ incorrect }
-                    onClick={ this.handleClick }
-                    disabled={ btnsDisable }
-                  >
-                    {element.answer}
-                  </button>)))
-          }
+        <div className="question">
+          <h3 data-testid="question-category">{`Category: ${question.category}`}</h3>
+          <h5 data-testid="question-text">{question.question}</h5>
+          <div data-testid="answer-options" className="answers">
+            {
+              answers.map((element, i) => (
+                element.id === number
+                  ? (
+                    <button
+                      key={ i }
+                      type="button"
+                      data-testid="correct-answer"
+                      className={ correct }
+                      onClick={ this.handleClick }
+                      disabled={ btnsDisable }
+                    >
+                      {element.answer}
+                    </button>)
+                  : (
+                    <button
+                      key={ i }
+                      type="button"
+                      data-testid={ `wrong-answer-${i}` }
+                      className={ incorrect }
+                      onClick={ this.handleClick }
+                      disabled={ btnsDisable }
+                    >
+                      {element.answer}
+                    </button>)))
+            }
+          </div>
         </div>
-        <div>
+        <div className="timer">
           <span>{`Você tem ${seconds} segundos para responder!`}</span>
-          {btnClicked && (
-            <button
-              type="button"
-              data-testid="btn-next"
-              onClick={ this.nextQuestion }
-            >
-              Next
-            </button>
-          )}
+          <div className="next">
+            {btnClicked && (
+              <button
+                type="button"
+                data-testid="btn-next"
+                onClick={ this.nextQuestion }
+              >
+                Next
+              </button>
+            )}
+          </div>
         </div>
       </div>
     );

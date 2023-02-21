@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 class Ranking extends Component {
   render() {
     const { history } = this.props;
-    const rankingPlayers = [];
+    const rankingPlayers = localStorage.getItem('ranking');
     return (
       <div>
         <h1 data-testid="ranking-title">Ranking</h1>
@@ -15,15 +15,19 @@ class Ranking extends Component {
         >
           Home
         </button>
-        {
-          rankingPlayers.map((player, index) => (
-            <div key={ index }>
-              <img src=" " alt="" />
-              <span data-testid={ `player-name-${index}` }>{player.name}</span>
-              <span data-testid={ `player-score-${index}` }>{player.score}</span>
-            </div>
-          ))
-        }
+        {rankingPlayers && (
+          <div>
+            {
+              rankingPlayers.map((player, index) => (
+                <div key={ index }>
+                  <img src=" " alt="" name="img-gravatar" />
+                  <span data-testid={ `player-name-${index}` }>{player.name}</span>
+                  <span data-testid={ `player-score-${index}` }>{player.score}</span>
+                </div>
+              ))
+            }
+          </div>
+        )}
       </div>
     );
   }

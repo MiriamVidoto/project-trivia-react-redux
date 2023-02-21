@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
+import './Feedback.css';
 
 class Feedback extends React.Component {
   render() {
@@ -17,23 +18,25 @@ class Feedback extends React.Component {
     return (
       <div>
         <Header />
-        <p data-testid="feedback-text">{ assert }</p>
-        <p data-testid="feedback-total-score">{ score }</p>
-        <p data-testid="feedback-total-question">{ assertions }</p>
-        <button
-          type="button"
-          data-testid="btn-play-again"
-          onClick={ () => history.push('/') }
-        >
-          Play Again
-        </button>
-        <button
-          type="button"
-          data-testid="btn-ranking"
-          onClick={ () => history.push('/ranking') }
-        >
-          Ranking
-        </button>
+        <div className="feedback">
+          <h3 data-testid="feedback-text">{ assert }</h3>
+          <p data-testid="feedback-total-score">{ `Score: ${score}` }</p>
+          <p data-testid="feedback-total-question">{ `Hits: ${assertions}` }</p>
+          <button
+            type="button"
+            data-testid="btn-play-again"
+            onClick={ () => history.push('/') }
+          >
+            Play Again
+          </button>
+          <button
+            type="button"
+            data-testid="btn-ranking"
+            onClick={ () => history.push('/ranking') }
+          >
+            Ranking
+          </button>
+        </div>
       </div>
     );
   }
