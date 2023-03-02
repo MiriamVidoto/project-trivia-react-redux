@@ -25,7 +25,7 @@ class Feedback extends React.Component {
           <button
             type="button"
             data-testid="btn-play-again"
-            onClick={ () => history.push('/') }
+            onClick={ () => history.push('/game') }
           >
             Play Again
           </button>

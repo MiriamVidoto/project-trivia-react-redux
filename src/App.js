@@ -15,7 +15,7 @@ export default function App() {
         <img src={ logo } className="App-logo" alt="logo" />
         <p>SUA VEZ DE BRILHAR</p>
       </header>
-      <Route exact path="/" component={ Login } />
+      <Route exact path="/project-trivia-react-redux" component={ Login } />
       <Route path="/game" component={ Game } />
       <Route path="/settings" component={ Settings } />
       <Route path="/feedback" component={ Feedback } />

@@ -166,7 +166,7 @@ class Game extends React.Component {
       return (<p>Carregando...</p>);
     }
     if (redirect) {
-      return <Redirect to="/" />;
+      return <Redirect to="/project-trivia-react-redux" />;
     }
     return (
       <div className="game">

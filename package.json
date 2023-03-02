@@ -2,7 +2,7 @@
   "name": "trivia-react-redux",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://miriamvidoto.github.io/project-trivia-react-redux/",
+  "homepage": "https://miriamvidoto.github.io/project-trivia-react-redux",
   "engines": {
     "node": "16"
   },
