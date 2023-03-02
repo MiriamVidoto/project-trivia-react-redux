@@ -4,6 +4,10 @@ Este foi um projeto em grupo, realizado durante o meu curso  na Trybe, onde util
 
 Foi desenvolvido um jogo de perguntas e respostas utilizando ReactJS e Redux.
 
+https://miriamvidoto.github.io/project-trivia-react-redux/
+
+  ![img](./trivia.png)
+
 Nessa aplicação, a pessoa usuária poderá:
 
   - Logar no jogo e, se o email tiver cadastro no site [Gravatar](https://pt.gravatar.com/), ter sua foto associada ao perfil da pessoa usuária.
